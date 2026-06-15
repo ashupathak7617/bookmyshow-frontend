@@ -58,10 +58,11 @@ export default function SuccessPage() {
         }}>
           <div style={{ fontSize: "48px", marginBottom: "16px" }}>⏳</div>
           <h2 style={{ fontSize: "20px", fontWeight: "700", color: "#222", marginBottom: "8px" }}>
-            Payment Confirm Ho Raha Hai...
+            Payment is being confirmed...
           </h2>
           <p style={{ fontSize: "13px", color: "#999" }}>
-            Please wait, yeh kuch seconds mein ho jayega
+            Please wait while we confirm your payment.
+            This will take just a few seconds.
           </p>
           <div style={{
             marginTop: "24px", height: "4px", background: "#f2f2f2",
@@ -106,7 +107,7 @@ export default function SuccessPage() {
             Booking Confirmed!
           </h1>
           <p style={{ fontSize: "13px", color: "#999", marginBottom: "28px" }}>
-            Tumhari payment successful rahi 🎉
+            Your payment was successful 🎉
           </p>
 
           {/* Booking Details */}
@@ -209,7 +210,7 @@ export default function SuccessPage() {
           Status Check Failed
         </h2>
         <p style={{ fontSize: "13px", color: "#999", marginBottom: "24px" }}>
-          Payment hua hoga — My Bookings mein check karo
+          Your payment was likely successful — check My Bookings
         </p>
         <button
           onClick={() => navigate("/bookings")}
@@ -220,7 +221,7 @@ export default function SuccessPage() {
             fontSize: "14px", fontWeight: "700", cursor: "pointer"
           }}
         >
-          My Bookings Dekho
+          View My Bookings
         </button>
       </div>
     </div>
