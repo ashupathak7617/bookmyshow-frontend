@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const api = axios.create({ baseURL: "http://localhost:3001", withCredentials: true,});
+const api = axios.create({ baseURL: "https://bookmyshow-16pn.onrender.com", withCredentials: true,});
 
 export const getMovies = (search = "") =>
   api.get(`/movies?search=${search}`)
