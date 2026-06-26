@@ -1,13 +1,25 @@
 import axios from "axios";
 
-const api = axios.create({ baseURL: "https://bookmyshow-16pn.onrender.com", withCredentials: true,});
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:3001",
+  withCredentials: true,
+});
+
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
 
 export const getMovies = (search = "") =>
   api.get(`/movies?search=${search}`)
      .then(res => res.data);
 
 export const getMovie = (movieId) =>
-  api.get(`/movies/${movieId}`).then(res => res.data);
+  api.get(`/movies/${movieId}`)
+     .then(res => res.data);
 
 export const getShows = (movieId) =>
   api.get(`/movies/${movieId}/shows`)
@@ -18,36 +30,45 @@ export const getSeats = (movieId, showId) =>
      .then(res => res.data);
 
 export const createBooking = (data) =>
-  api.post("/bookings", { booking: data }).then(res => res.data);
+  api.post("/bookings", { booking: data })
+     .then(res => res.data);
 
-export const signIn = (email, password) =>
-  api.post("/customers/sign_in", { customer: { email, password }}).then(r => r.data);
+export const getBookings = () =>
+  api.get("/bookings")
+     .then(res => res.data);
 
-export const signUp = (name, email, password, password_confirmation) =>
-  api.post("/customers", {customer: { name, email, password, password_confirmation }
-  }).then(r => r.data);
+export const loginCustomer = async (email, password) => {
+  const response = await api.post("/customers/sign_in", {
+    customer: { email, password }
+  });
+  if (response.data.token) {
+    localStorage.setItem('token', response.data.token);
+  }
+  return response.data;
+};
 
-export const loginCustomer = (email, password) =>
-  api.post(
-    "/customers/sign_in",
-    {
-      customer: {
-        email,
-        password
-      }
+export const signUpCustomer = async (name, email, password) => {
+  const response = await api.post("/customers", {
+    customer: {
+      name,
+      email,
+      password,
+      password_confirmation: password
     }
-  ).then(r => r.data);
+  });
+  if (response.data.token) {
+    localStorage.setItem('token', response.data.token);
+  }
+  return response.data;
+};
 
-  export const logoutCustomer = () =>
-  api.delete("/customers/sign_out");
+export const logoutCustomer = async () => {
+  await api.delete("/customers/sign_out");
+  localStorage.removeItem('token');
+};
 
-  export const signUpCustomer = (name, email, password) =>
-  api.post("/customers", {customer: { name, email, password }})
-
-  export const getBookings = () =>
-    api.get("/bookings").then(r => r.data);
-
-  export const getCurrentCustomer =() =>
-    api.get("/current_customer").then(r => r.data)
+export const getCurrentCustomer = () =>
+  api.get("/current_customer")
+     .then(res => res.data);
 
 export default api;

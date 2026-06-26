@@ -77,13 +77,22 @@ export default function MoviesPage() {
             }}>
 
               {/* Poster */}
-              <div style={{
-                width: "100%", height: "200px",
-                background: colors[index % colors.length],
-                display: "flex", alignItems: "center",
-                justifyContent: "center", fontSize: "48px"
-              }}>
-                🎬
+              <div
+                style={{
+                  width: "100%",
+                  height: "200px",
+                  overflow: "hidden"
+                }}
+              >
+                <img
+                  src={movie.image_url}
+                  alt={movie.name}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover"
+                  }}
+                />
               </div>
 
               {/* Info */}

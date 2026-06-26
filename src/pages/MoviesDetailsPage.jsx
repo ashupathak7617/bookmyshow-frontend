@@ -51,14 +51,24 @@ export default function MovieDetailPage() {
       }}>
 
         {/* Poster */}
-        <div style={{
-          width: "180px", minWidth: "180px", height: "260px",
-          background: "rgba(255,255,255,0.15)",
-          borderRadius: "8px",
-          display: "flex", alignItems: "center",
-          justifyContent: "center", fontSize: "64px"
-        }}>
-          🎬
+        <div
+          style={{
+            width: "180px",
+            minWidth: "180px",
+            height: "260px",
+            borderRadius: "8px",
+            overflow: "hidden"
+          }}
+        >
+          <img
+            src={movie.image_url}
+            alt={movie.name}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover"
+            }}
+          />
         </div>
 
         {/* Info */}

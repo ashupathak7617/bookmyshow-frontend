@@ -3,7 +3,6 @@ import { logoutCustomer } from "../api/api";
 
 export default function Navbar({ customer, setCustomer }) {
   const navigate = useNavigate();
-
   const handleLogout = async () => {
     try {
       await logoutCustomer();
